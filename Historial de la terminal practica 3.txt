@@ -1,0 +1,215 @@
+    1  ][*¨´+.mkdir -p ~/empresa/proyectos/{logo,web,redes}
+    2  mkdir -p ~/empresa/backups/{semanal,diario}
+    3  mkdir -p ~/empresa/proyectos/{logo,web,redes}
+    4  mkdir -p ~/empresa/backups/{semanal,diario}
+    5  echo 'Logo v1.0 - Cliente Acme Corp'    > ~/empresa/proyectos/logo/logo_v1.txt
+    6  echo 'Logo v2.0 - Colores actualizados' > ~/empresa/proyectos/logo/logo_v2.txt
+    7  echo 'Diseno web - pagina principal'    > ~/empresa/proyectos/web/index.txt
+    8  echo 'Diseno web - menu de navegacion'  > ~/empresa/proyectos/web/menu.txt
+    9  echo 'Post Instagram - campana enero'   > ~/empresa/proyectos/redes/post_ene.txt
+   10  find ~/empresa/proyectos/ -type f
+   11  du -sh ~/empresa/proyectos/
+   12  tar -czvf ~/empresa/backups/semanal/backup_lunes.tar.gz     ~/empresa/proyectos/
+   13  tar -tzvf ~/empresa/backups/semanal/backup_lunes.tar.gz
+   14  echo '--- ORIGINAL ---'
+   15  du -sh ~/empresa/proyectos/
+   16  echo '--- BACKUP COMPRIMIDO ---'
+   17  ls -lh ~/empresa/backups/semanal/backup_lunes.tar.gz
+   18  echo 'Logo v3.0 - Fuente actualizada' >> ~/empresa/proyectos/logo/logo_v2.txt
+   19  echo 'Menu responsive anadido'        >> ~/empresa/proyectos/web/menu.txt
+   20  echo 'Post Instagram - campana feb'   >  ~/empresa/proyectos/redes/post_feb.txt
+   21  echo 'Banner web - verano'            >  ~/empresa/proyectos/web/banner.txt
+   22  echo '--- ARCHIVOS MODIFICADOS DESDE EL LUNES ---'
+   23  find ~/empresa/proyectos/     -newer ~/empresa/backups/semanal/backup_lunes.tar.gz     -type f
+   24  tar -czvf ~/empresa/backups/diario/backup_martes_inc.tar.gz     $(find ~/empresa/proyectos/ \
+        -newer ~/empresa/backups/semanal/backup_lunes.tar.gz \
+        -type f)
+   25  tar -tzvf ~/empresa/backups/diario/backup_martes_inc.tar.gz
+   26  echo '--- COMPLETO (lunes) ---'
+   27  ls -lh ~/empresa/backups/semanal/backup_lunes.tar.gz
+   28  echo '--- INCREMENTAL (martes) ---'
+   29  ls -lh ~/empresa/backups/diario/backup_martes_inc.tar.gz
+   30  echo '--- ANTES ---'
+   31  find ~/empresa/proyectos/ -type f
+   32  rm ~/empresa/proyectos/logo/logo_v1.txt
+   33  rm ~/empresa/proyectos/logo/logo_v2.txt
+   34  echo 'ARCHIVO CORROMPIDO' > ~/empresa/proyectos/web/index.txt
+   35  echo '--- DESPUES ---'
+   36  find ~/empresa/proyectos/ -type f
+   37  cat ~/empresa/proyectos/web/index.txt
+   38  mkdir -p ~/empresa/restauracion/
+   39  tar -xzvf ~/empresa/backups/semanal/backup_lunes.tar.gz     -C ~/empresa/restauracion/
+   40  find ~/empresa/restauracion/ -type f
+   41  tar -xzvf ~/empresa/backups/semanal/backup_lunes.tar.gz     -C ~/empresa/restauracion/     --wildcards '*/logo/*.txt'
+   42  echo '--- logo_v1.txt restaurado ---'
+   43  find ~/empresa/restauracion/ -name 'logo_v1.txt' -exec cat {} \;
+   44  echo '--- index.txt restaurado vs corrompido ---'
+   45  find ~/empresa/restauracion/ -name 'index.txt' -exec cat {} \;
+   46  cat ~/empresa/proyectos/web/index.txt
+   47  echo '--- VERIFICACIÓN NORMAL ---'
+   48  md5sum -c ~/empresa/backups/semanal/backup_lunes.md5
+   49  echo 'datos corruptos' >> ~/empresa/backups/semanal/backup_lunes.tar.gz
+   50  ls -lh ~/empresa/backups/semanal/backup_lunes.tar.gz
+   51  ta
+   52  ls -lh ~/empresa/backups/semanal/backup_lunes.tar.gz
+   53  echo '--- VERIFICACIÓN DESPUÉS DE CORRUPCIÓN ---'
+   54  md5sum -c ~/empresa/backups/semanal/backup_lunes.md5
+   55  rm -rf ~/empresa/
+   56  echo 'Entorno limpiado'
+   57  clear
+   58  mkdir -p ~/servidor/{estudiantes,profesores,logs,temporal,lost_found_sim}
+   59  for i in $(seq 1 20); do     echo "Tarea $i del estudiante" > ~/servidor/estudiantes/tarea_$i.txt; done
+   60  echo 'Material SO - Unidad 1'    > ~/servidor/profesores/so_u1.txt
+   61  echo 'Material SO - Unidad 2'    > ~/servidor/profesores/so_u2.txt
+   62  echo 'Examen parcial version A'  > ~/servidor/profesores/examen_A.txt
+   63  for mes in enero febrero marzo abril mayo junio julio agosto; do     for dia in $(seq 1 5); do         echo "[$mes dia $dia] INFO: Sistema normal"               > ~/servidor/logs/sistema_${mes}_${dia}.log;         echo "[$mes dia $dia] ERROR: Lectura lenta"             >> ~/servidor/logs/sistema_${mes}_${dia}.log;     done; done
+   64  for i in $(seq 1 50); do     dd if=/dev/urandom bs=512 count=1         of=~/servidor/temporal/temp_$i.tmp 2>/dev/null; done
+   65  # Total de archivos creados
+   66  echo '--- TOTAL DE ARCHIVOS ---'
+   67  find ~/servidor/ -type f | wc -lech
+   68  echo 'archivos (= inodos usados)'
+   69  clear
+   70  echo 'Material SO - Unidad 1'    > ~/servidor/profesores/so_u1.txt
+   71  echo 'Material SO - Unidad 2'    > ~/servidor/profesores/so_u2.txt
+   72  echo 'Examen parcial version A'  > ~/servidor/profesores/examen_A.txt
+   73  for mes in enero febrero marzo abril mayo junio julio agosto; do     for dia in $(seq 1 5); do         echo "[$mes dia $dia] INFO: Sistema normal"               > ~/servidor/logs/sistema_${mes}_${dia}.log;         echo "[$mes dia $dia] ERROR: Lectura lenta"             >> ~/servidor/logs/sistema_${mes}_${dia}.log;     done; done
+   74  for i in $(seq 1 50); do     dd if=/dev/urandom bs=512 count=1         of=~/servidor/temporal/temp_$i.tmp 2>/dev/null; done
+   75  echo '--- TOTAL DE ARCHIVOS ---'
+   76  find ~/servidor/ -type f | wc -lech
+   77  echo 'archivos (= inodos usados)'
+   78  df -h ~
+   79  df -i ~
+   80  echo '--- USO POR DIRECTORIO ---'
+   81  du -sh ~/servidor/*/
+   82  echo '--- RANKING ---'
+   83  du -sh ~/servidor/*/ | sort -rh
+   84  echo '--- ARCHIVOS POR DIRECTORIO ---'
+   85  for dir in ~/servidor/*/; do     count=$(find "$dir" -type f | wc -l);     echo "$count archivos en $(basename $dir)"; done
+   86  echo '--- INODOS EN LOGS ---'
+   87  ls -i ~/servidor/logs/ | head -5
+   88  echo '--- INODOS EN TEMPORAL ---'
+   89  ls -i ~/servidor/temporal/ | head -5
+   90  stat ~/servidor/profesores/examen_A.txt
+   91  ln ~/servidor/profesores/so_u1.txt ~/servidor/so_u1_enlace.txt
+   92  echo '--- HARD LINK: mismo inodo, dos nombres ---'
+   93  ls -i ~/servidor/profesores/so_u1.txt ~/servidor/so_u1_enlace.txt
+   94  stat ~/servidor/profesores/so_u1.txt | grep -E 'Inode|Links'
+   95  echo '--- ESTADO ANTES ---'
+   96  find ~/servidor/ -type f | wc -l
+   97  echo 'archivos totales'
+   98  du -sh ~/servidor/temporal/
+   99  du -sh ~/servidor/logs/
+  100  echo '--- ELIMINANDO TEMPORALES ---'
+  101  find ~/servidor/temporal/ -name '*.tmp' | wc -l
+  102  echo 'archivos .tmp a eliminar'
+  103  find ~/servidor/temporal/ -name '*.tmp' -delete
+  104  echo 'Temporales eliminados'
+  105  echo '--- ARCHIVANDO LOGS ANTIGUOS ---'
+  106  mkdir -p ~/servidor/logs_archivados/
+  107  tar -czvf ~/servidor/logs_archivados/logs_Q1.tar.gz     ~/servidor/logs/sistema_enero_*.log      ~/servidor/logs/sistema_febrero_*.log     ~/servidor/logs/sistema_marzo_*.log
+  108  rm ~/servidor/logs/sistema_enero_*.log
+  109  rm ~/servidor/logs/sistema_febrero_*.log
+  110  rm ~/servidor/logs/sistema_marzo_*.log
+  111  echo '--- ESTADO DESPUES ---'
+  112  find ~/servidor/ -type f | wc -l
+  113  echo 'archivos totales'
+  114  du -sh ~/servidor/temporal/
+  115  du -sh ~/servidor/logs/
+  116  du -sh ~/servidor/logs_archivados/
+  117  echo 'contenido sin nombre conocido'  > ~/servidor/lost_found_sim/12345
+  118  echo 'posible tarea recuperada'       > ~/servidor/lost_found_sim/99001
+  119  dd if=/dev/urandom bs=128 count=1     of=~/servidor/lost_found_sim/67890 2>/dev/null
+  120  echo '--- ARCHIVOS EN LOST+FOUND ---'
+  121  ls -lh ~/servidor/lost_found_sim/
+  122  echo '--- TIPO DE CADA ARCHIVO ---'
+  123  file ~/servidor/lost_found_sim/*
+  124  echo '--- CONTENIDO DE ARCHIVOS DE TEXTO ---'
+  125  for f in ~/servidor/lost_found_sim/*; do     if file "$f" | grep -q text; then         echo "--- $(basename $f) ---";         cat "$f";     fi; done
+  126  clear
+  127  echo '--- CHECKSUMS INICIALES ---'
+  128  md5sum ~/servidor/profesores/* > ~/servidor/checksums_profesores.md5
+  129  cat ~/servidor/checksums_profesores.md5
+  130  echo 'RESPUESTAS FILTRADAS' >> ~/servidor/profesores/examen_A.txt
+  131  echo '(examen_A.txt fue modificado)'
+  132  echo '--- RESULTADO DE VERIFICACIÓN ---'
+  133  md5sum -c ~/servidor/checksums_profesores.md5
+  134  echo '--- TAMAÑOS ACTUALES ---'
+  135  ls -lh ~/servidor/profesores/
+  136  cat > ~/servidor/monitor.sh << 'EOF'
+#!/bin/bash
+# monitor.sh — Monitoreo de espacio, inodos y archivos del servidor
+
+
+UMBRAL_TEMPS=50    # alerta si hay más de N archivos temporales
+UMBRAL_LOGS=20     # alerta si hay más de N archivos de log
+DIRECTORIO=~/servidor
+
+
+echo '======================================='
+echo 'REPORTE DE MONITOREO DEL SERVIDOR'
+echo "Fecha: $(date)"
+echo '======================================='
+
+
+# Espacio en disco
+echo ''
+echo '--- Uso de espacio (bloques) ---'
+df -h ~ | tail -1
+
+
+echo ''
+echo '--- Uso de inodos ---'
+df -i ~ | tail -1
+
+
+# Archivos por directorio
+echo ''
+echo '--- Archivos por directorio ---'
+for dir in $DIRECTORIO/*/; do
+    count=$(find "$dir" -type f 2>/dev/null | wc -l)
+    echo "  $count  $(basename $dir)"
+done
+
+
+# Alertas
+echo ''
+TEMPS=$(find $DIRECTORIO/temporal/ -name '*.tmp' 2>/dev/null | wc -l)
+if [ "$TEMPS" -gt "$UMBRAL_TEMPS" ]; then
+    echo "ALERTA: $TEMPS archivos .tmp en /temporal (umbral: $UMBRAL_TEMPS)"
+else
+    echo "OK: $TEMPS archivos .tmp en /temporal"
+fi
+
+
+LOGS=$(find $DIRECTORIO/logs/ -name '*.log' 2>/dev/null | wc -l)
+if [ "$LOGS" -gt "$UMBRAL_LOGS" ]; then
+    echo "ALERTA: $LOGS archivos .log acumulados — considerar archivar"
+else
+    echo "OK: $LOGS archivos .log"
+fi
+
+
+echo '======================================='
+EOF
+
+  137  chmod +x ~/servidor/monitor.sh
+  138  bash ~/servidor/monitor.sh
+  139  echo ''
+  140  echo '--- EJEMPLO DE ENTRADA EN CRONTAB ---'
+  141  echo '# Ejecutar todos los días a las 11 PM:'
+  142  echo '0 23 * * * bash ~/servidor/monitor.sh >> ~/servidor/monitor.log 2>&1'
+  143  echo ''
+  144  echo '# Para editar el cron del usuario actual:'
+  145  echo 'crontab -e'
+  146  echo '--- ESTADO FINAL ---'
+  147  for dir in ~/servidor/*/; do     count=$(find "$dir" -type f 2>/dev/null | wc -l);     size=$(du -sh "$dir" 2>/dev/null | cut -f1);     echo "  $size  $count archivos  $(basename $dir)"; done
+  148  echo ''
+  149  find ~/servidor/ -type f | wc -l
+  150  echo 'archivos totales restantes'
+  151  du -sh ~/servidor/
+  152  # Limpiar entorno
+  153  rm -rf ~/servidor/
+  154  echo 'Entorno limpiado correctamente'
+  155  hystori
+  156  history
+vboxer@Debian:~$ 
